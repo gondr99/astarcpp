@@ -3,33 +3,28 @@
 #include "MapManager.h"
 #include "PriorityQueue.h"
 #include "Node.h"
+#include "AStar.h"
+#include "Common.h"
 using namespace std;
-
-MapManager mapManager;
-PriorityQueue heap;
 
 int main()
 {
-	/*mapManager.ReadMapFile();
-	mapManager.PrintMap();*/
-	Node n1(0, 0, 0, 4.0);
-	heap.Push(n1);
-	Node n2(0, 1, 0, 2.0);
-	heap.Push(n2);
-	Node n3(1, 1, 0, 5.0);
-	heap.Push(n3);
-	Node n4(2, 2, 0, 7.0);
-	heap.Push(n4);
-	Node n5(2, 3, 0, 1.0);
-	heap.Push(n5);
-
-	heap.PrintHeap();
-
-	Node p = heap.Pop();
-	cout << "꺼내온 노드 : " << p.ToString() << endl;
+	MapManager::GetInstance().ReadMapFile();
+	MapManager::GetInstance().ClearPath();
+	MapManager::GetInstance().PrintMap();
 	
-	heap.PrintHeap();
+	
+	AStar aStar;
 
+	Point start = { 1, 1 };
+	Point end = { 17, 8 };
+	bool result = aStar.CalcRoute(start, end);
+	if (!result)
+	{
+		cout << "경로를 못찾았습니다." << endl;
+	}
+
+	MapManager::GetInstance().PrintMap();
 	
 	return 0;
 }

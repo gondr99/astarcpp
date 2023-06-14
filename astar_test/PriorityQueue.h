@@ -7,13 +7,15 @@ class Node;
 class PriorityQueue
 {
 public:
-	vector<Node> heap;
+	vector<Node*> heap;
+	PriorityQueue();
+	~PriorityQueue();
 
 public:
 	int Count();
 	Node* FindNode(Node& n);
 	void Push(Node data);
-	Node Pop();
+	Node* Pop();
 
 
 	void PrintHeap();

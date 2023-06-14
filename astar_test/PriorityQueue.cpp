@@ -1,8 +1,21 @@
 #include <iostream>
 #include "PriorityQueue.h"
+#include "Common.h"
 #include "Node.h"
 
 using namespace std;
+
+PriorityQueue::PriorityQueue()
+{
+}
+
+PriorityQueue::~PriorityQueue()
+{
+    for (auto it = heap.begin(); it != heap.end(); ++it)
+    {
+        delete* it;
+    }
+}
 
 int PriorityQueue::Count()
 {
@@ -13,34 +26,35 @@ Node* PriorityQueue::FindNode(Node& n)
 {
     for (int i = 0; i < heap.size(); i++)
     {
-        if (heap[i].point.x == n.point.x && heap[i].point.y == n.point.y)
-            return &heap[i];
+        if (*heap[i]->point == *n.point)
+            return heap[i];
     }
-    return NULL;
+    return nullptr;
 }
 
 void PriorityQueue::Push(Node data)
 {
-    heap.push_back(data);
+    Node* insertNode = new Node(data);
+    heap.push_back(insertNode);
     int now = heap.size() - 1; //현재 인덱스
     while (now > 0)
     {
         int next = (now - 1) / 2; //부모를 선택해서 비교한다 (타입캐스트로 자동 내림 돼)
-        if (heap[now].Compare(heap[next]) < 0)  //next가 now보다 더 작은경우
+        if (heap[now]->Compare(heap[next]) < 0)  //next가 now보다 더 작은경우
         {
             break;
         }
         
-        Node temp = heap[now];
+        Node* temp = heap[now];
         heap[now] = heap[next];
         heap[next] = temp;
         now = next;
     }
 }
 
-Node PriorityQueue::Pop()
+Node* PriorityQueue::Pop()
 {
-    Node ret = heap[0];
+    Node* ret = heap[0];
 
     int lastIdx = heap.size() - 1;
     heap[0] = heap[lastIdx];
@@ -55,12 +69,12 @@ Node PriorityQueue::Pop()
 
         int next = now;
 
-        if (left <= lastIdx && heap[next].Compare(heap[left]) < 0)
+        if (left <= lastIdx && heap[next]->Compare(heap[left]) < 0)
         {
             next = left;
         }
 
-        if (right <= lastIdx && heap[next].Compare(heap[right]) < 0)
+        if (right <= lastIdx && heap[next]->Compare(heap[right]) < 0)
         {
             next = right;
         }
@@ -70,7 +84,7 @@ Node PriorityQueue::Pop()
             break;
         }
 
-        Node temp = heap[now];
+        Node* temp = heap[now];
         heap[now] = heap[next];
         heap[next] = temp;
         now = next;
@@ -83,6 +97,6 @@ void PriorityQueue::PrintHeap()
 {
     for (int i = 0; i < heap.size(); i++)
     {
-        cout << heap[i].ToString() << endl;
+        cout << heap[i]->ToString() << endl;
     }
 }

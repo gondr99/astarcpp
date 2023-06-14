@@ -23,10 +23,10 @@
     <ClCompile Include="Node.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="AStar.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="PriorityQueue.cpp">
+      <Filter>CoreManager</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
       <Filter>CoreManager</Filter>
     </ClCompile>
   </ItemGroup>
