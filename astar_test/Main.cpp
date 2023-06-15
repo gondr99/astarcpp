@@ -11,8 +11,7 @@ int main()
 {
 	MapManager::GetInstance().ReadMapFile();
 	MapManager::GetInstance().ClearPath();
-	MapManager::GetInstance().PrintMap();
-	
+	//MapManager::GetInstance().PrintMap();
 	
 	AStar aStar;
 

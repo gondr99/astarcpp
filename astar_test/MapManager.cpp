@@ -1,12 +1,38 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <windows.h>
 #include "MapManager.h"
 
 using namespace std;
 
-MapManager::MapManager()
+enum class ColorSet
 {
+	BLACK,
+	DARK_BLUE,
+	DARK_GREEN,
+	DARK_SKYBLUE,
+	DARK_RED,
+	DARK_VOILET,
+	DAKR_YELLOW,
+	GRAY,
+	DARK_GRAY,
+	BLUE,
+	GREEN,
+	SKYBLUE,
+	RED,
+	VIOLET,
+	YELLOW,
+	WHITE,
+};
+
+void MapManager::SetColor(unsigned short text) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
+}
+
+MapManager::MapManager() : _mapData {'0',}, _pathData{'0',}
+{
+	system("mode con:cols=100 lines=50");
 	
 }
 
@@ -28,7 +54,7 @@ void MapManager::ReadMapFile()
 		buffer.copy(_mapData[line], buffer.length());
 		line++;
 	}
-
+	cout << line << endl;
 	fin.close();
 }
 
@@ -39,14 +65,21 @@ void MapManager::PrintMap()
 		for (int j = 0; j < 21; j++)
 		{
 			if (_pathData[i][j] != '0') {
+				SetColor( static_cast<int>( ColorSet::BLUE));
 				cout << _pathData[i][j];
 			}
+			else if(_mapData[i][j] == '*') {
+				SetColor(static_cast<int>(ColorSet::DARK_GRAY));
+				cout << _mapData[i][j];
+			}
 			else {
+				SetColor(static_cast<int>(ColorSet::WHITE));
 				cout << _mapData[i][j];
 			}
 		}
-		cout << endl;
+		cout << "---" << i << endl;
 	}
+	SetColor(static_cast<int>(ColorSet::WHITE));
 }
 
 void MapManager::ClearPath()

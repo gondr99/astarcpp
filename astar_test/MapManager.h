@@ -13,8 +13,8 @@ public:
 	
 private:
 	MapManager();
-	MapManager(const MapManager& ref) {};
-	MapManager& operator=(const MapManager& ref) {};
+	MapManager(const MapManager& ref) : _mapData{ '0', }, _pathData{ '0', } {};
+	MapManager& operator=(const MapManager& ref){};
 	~MapManager();
 
 private:
@@ -26,7 +26,8 @@ public:
 	void PrintMap();
 	void ClearPath();
 	void SetPath(int x, int y);
-
 	bool CanMove(int x, int y);
+
+	void SetColor(unsigned short text);
 };
 

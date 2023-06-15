@@ -24,7 +24,7 @@ bool AStar::CalcRoute(Point start, Point end)
 	while (openList->Count() > 0)
 	{
 		Node* n = openList->Pop();
-		cout << n->ToString() << endl;
+		//cout << n->ToString() << endl;
 		FindOpenList(n); //n에서 열린 노드 죄다 검색
 		closeList.push_back(n); //방문 노드로 n넣기
 
@@ -66,7 +66,7 @@ bool AStar::CalcRoute(Point start, Point end)
 
 void AStar::FindOpenList(Node* currentNode)
 {
-	cout << currentNode->point->x << ", " << currentNode->point->y << " : 탐색시작" << endl;
+	//cout << currentNode->point->x << ", " << currentNode->point->y << " : 탐색시작" << endl;
 	for (int i = -1; i <= 1; i++)
 	{
 		for (int j = -1; j <= 1; j++)
@@ -79,9 +79,9 @@ void AStar::FindOpenList(Node* currentNode)
 			auto it = find_if(closeList.begin(), closeList.end(), [&](Node* x)->bool {
 				return *x->point == p;
 			});
-			cout << p.x << ", " << p.y ;
+			//cout << p.x << ", " << p.y ;
 			if (it != closeList.end()) {
-				cout << " : 이미 방문" << endl;
+				//cout << " : 이미 방문" << endl;
 				continue; //이미 방문한 노드니까 없애
 			}
 
@@ -100,7 +100,7 @@ void AStar::FindOpenList(Node* currentNode)
 						find->F = newNode.F;
 						find->parent = newNode.parent;
 					}
-					cout << ": 이미 있어서 값만 교체 ";
+					//cout << ": 이미 있어서 값만 교체 ";
 				}
 				else //못 찾았다면
 				{
@@ -108,9 +108,9 @@ void AStar::FindOpenList(Node* currentNode)
 				}
 			}
 			else {
-				cout << " : 갈 수 없음";
+				//cout << " : 갈 수 없음";
 			}
-			cout << endl;
+			//cout << endl;
 		}
 	}
 }
